@@ -1,0 +1,30 @@
+.ui.button.round {
+    border-radius: var(--radius-xs);
+}
+.ui.button.size-sm {
+    height: 80px; 
+    padding-left: 34px; 
+    padding-right: 34px; 
+    font-size: 36px;
+}
+.ui.button.size-xs {
+    height: 48px; 
+    padding-left: 34px; 
+    padding-right: 34px; 
+    font-size: 20px;
+}
+.ui.button.fill.black_900 {
+    background-color: var(--black_900);
+    color: var(--white_a700);
+}
+.ui.button {
+    text-align: center;
+    display: flex;
+    cursor: pointer;
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: center; 
+    white-space: nowrap;
+    color: var(--white_a700);
+    background-color: var(--black_900);
+}

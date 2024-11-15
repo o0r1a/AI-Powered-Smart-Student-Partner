@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload PDF or YouTube Link</title>
+    <link rel="stylesheet" type="text/css" href="./css/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #343a40;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #495057;
+        }
+        input[type="file"], input[type="text"], button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .note {
+            font-size: 14px;
+            color: #6c757d;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Upload Your Files</h1>
+        <form id="uploadForm" method="POST" enctype="multipart/form-data" action="/upload">
+            <!-- PDF Upload Section -->
+            <div class="form-group">
+                <label for="pdfFile">Upload PDF:</label>
+                <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" required>
+            </div>
+            <!-- YouTube Link Section -->
+            <div class="form-group">
+                <label for="youtubeLink">YouTube Video Link:</label>
+                <input type="text" id="youtubeLink" name="youtubeLink" placeholder="Enter YouTube video URL">
+            </div>
+            <!-- Submit Button -->
+            <button type="submit"> Submit </button>
+        </form>
+<!--        <script>-->
+<!--        //Handling the form submission via AJAX-->
+<!--        document.getElementById('uploadForm').addEventListener('submit', function(event) {-->
+<!--            event.preventDefault();  //Prevent the form from submitting normally-->
+
+<!--            var formData = new FormData();  // FormData to send the file-->
+<!--            formData.append('pdf_file', document.getElementById('pdf_file').files[0]);-->
+
+<!--            Make the AJAX request to Flask backend-->
+<!--            fetch('/upload', {-->
+<!--                method: 'POST',-->
+<!--                body: formData-->
+<!--            })-->
+<!--            .then(response => response.json())-->
+<!--            .then(data => {-->
+<!--                // Show success message or process data (adjust this based on your result)-->
+<!--                document.getElementById('response').innerText = 'File uploaded and processed successfully!';-->
+<!--                console.log(data);  // You can process or display more data from Flask here-->
+<!--            })-->
+<!--            .catch(error => {-->
+<!--                document.getElementById('response').innerText = 'Error uploading file';-->
+<!--                console.error('Error:', error);-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
+        <script>
+    document.getElementById('uploadForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var formData = new FormData();
+        formData.append('pdf_file', document.getElementById('pdf_file').files[0]);
+
+        fetch('/upload', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('response').innerText = 'File uploaded and processed successfully!';
+            console.log(data);
+        })
+        .catch(error => {
+            document.getElementById('response').innerText = 'Error uploading file';
+            console.error('Error:', error);
+        });
+    });
+</script>
+
+    <p class="note">Accepted formats: PDF files and valid YouTube video links.</p>
+    </div>
+</body>
+</html>
